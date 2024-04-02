@@ -1,0 +1,56 @@
+.login
+    margin-top 70px
+
+    .title
+        text-align center
+
+        h1
+            font-size 45px
+            font-weight 700
+            margin-bottom 20px
+
+    .content
+        width 450px
+        background rgba(0, 0, 0, 0.45)
+        padding 50px 20px 50px 20px
+        margin 0 auto
+
+        // transform rotateY(180deg)
+        h2
+            text-align center
+            padding-bottom 15px
+
+        .form
+            .form-item
+                padding 10px 0
+                flex-direction column
+                width 100%
+
+                :deep(label)
+                    color #f3f3f3
+
+                .form-input
+                    width 100%
+                    --el-input-bg-color rgba(255, 255, 255, 0.2)
+
+                    :deep(input)
+                        color #f3f3f3
+
+                    :deep(input::placeholder)
+                        color #d1cdcd
+
+        .pwd-skip
+            font-size 12px
+            text-align right
+            margin-top 10px
+            cursor pointer
+            color #fff
+            display flex
+            justify-content flex-end
+
+            &:hover
+                text-decoration underline
+
+        .lgoin-btn
+            text-align center
+            padding-top 15px
