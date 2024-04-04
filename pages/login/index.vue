@@ -64,8 +64,8 @@ interface RuleForm {
   password: string
 }
 const user = reactive<RuleForm>({
-  username: "admin",
-  password: "123456",
+  username: "",
+  password: "",
 })
 const ruleFormRef = ref<FormInstance>()
 const rules = reactive<FormRules<RuleForm>>({
@@ -94,7 +94,6 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
         token.value = result.data.token //存入cookie
         refreshToken.value = result.data.refreshToken
         userinfo.value = result.data.user
-        console.log(result.data.token)
         useUser().value = result.data.user //存入状态管理
         useToken().value = result.data.token
         useRefreshToken().value = result.data.refreshToken
