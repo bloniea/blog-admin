@@ -92,6 +92,7 @@
               v-model="userForm.password"
               type="password"
               placeholder="请输入密码"
+              show-password
             ></el-input>
           </el-form-item>
           <el-form-item label="角色" prop="role_id">
@@ -153,6 +154,7 @@
               placeholder="不写则保持旧密码"
               v-model="editUserForm.password"
               type="password"
+              show-password
             ></el-input>
           </el-form-item>
           <el-form-item label="角色" prop="role_id">

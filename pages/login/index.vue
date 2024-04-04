@@ -26,6 +26,7 @@
             autocomplete="current-username"
             class="form-input"
             :prefix-icon="User"
+            @keyup.enter="onSubmit(ruleFormRef)"
           />
         </el-form-item>
         <el-form-item label="Password" class="form-item" prop="password">
@@ -37,9 +38,11 @@
             autocomplete="current-password"
             class="form-input"
             :prefix-icon="Lock"
+            @keyup.enter="onSubmit(ruleFormRef)"
+            show-password
           />
         </el-form-item>
-        <div class="pwd-skip">Forgot Password ?</div>
+        <!-- <div class="pwd-skip">Forgot Password ?</div> -->
         <div class="lgoin-btn">
           <el-button @click="onSubmit(ruleFormRef)" :loading="btnLoading">
             LOGIN IN</el-button
@@ -47,7 +50,6 @@
         </div>
       </el-form>
     </div>
-    <MyFooter />
   </div>
 </template>
 
@@ -88,8 +90,11 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
   await formEl.validate(async (valid, fields) => {
     if (valid) {
       btnLoading.value = true
-      user.password = sha256(user.password)
-      const result = await loginApi(user)
+      const userReq = {
+        username: user.username,
+        password: sha256(user.password),
+      }
+      const result = await loginApi(userReq)
       if (result.success) {
         token.value = result.data.token //存入cookie
         refreshToken.value = result.data.refreshToken
