@@ -1,7 +1,6 @@
 {
   "version": 2,
   "routes": [
-    { "src": "/(.*)", "dest": "/" },
     { "src": "/api/:match*", "dest": "https://blog.api.bloniea.com/v1" }
   ]
 }
