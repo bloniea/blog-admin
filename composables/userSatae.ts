@@ -1,26 +1,14 @@
-import type { User } from "~/types/type"
-
-export const useUser = () => {
-  return useState("user", (): Record<string, any> | undefined => {
-    const user = useCookie("user") as { value: User }
-    return user.value || undefined
-  })
+export const useUserInfo = () => {
+  return useState("user", (): Record<string, any> | undefined => undefined)
 }
 export const useLoginStatus = () => {
-  const token = useCookie("token")
-  const refreshToken = useCookie("refreshToken")
-  const user = useCookie("user")
-  return useState("loginStatus", (): boolean =>
-    token.value && refreshToken.value && user.value ? true : false
-  )
+  return useState("loginStatus", (): boolean => false)
 }
 export const useToken = () => {
-  const token = useCookie("token")
-  return useState("token", (): string => token.value || "")
+  return useState("token", (): string => "")
 }
 export const useRefreshToken = () => {
-  const refreshToken = useCookie("refreshToken")
-  return useState("refreshToken", (): string => refreshToken.value || "")
+  return useState("refreshToken", (): string => "")
 }
 export const useSaveFetch = () => {
   return useState("saveFetch", (): string => "")

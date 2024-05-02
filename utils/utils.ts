@@ -22,3 +22,19 @@ export const getDate = (str: string): string => {
 export const sha256 = (val: string): string => {
   return Base64.stringify(cryptoSha256(val))
 }
+export const saveLocal = (values: Record<string, any>) => {
+  const keys = Object.keys(values)
+  keys.forEach((key) => {
+    if (typeof values[key] !== "string") {
+      window.localStorage.setItem(key, JSON.stringify(values[key]))
+    } else {
+      window.localStorage.setItem(key, values[key])
+    }
+  })
+}
+
+export const clearLocal = (values: Array<string>) => {
+  values.forEach((key) => {
+    window.localStorage.removeItem(key)
+  })
+}

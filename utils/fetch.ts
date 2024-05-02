@@ -11,7 +11,7 @@ export const http = async (
   method: Method = "GET",
   data: any = null,
   options?: RequestInit | undefined,
-  timeout: number = 5000, // 默认超时时间为5秒
+  timeout: number = 30000, // 默认超时时间为5秒
   maxRetries: number = 3 // 默认最大重试次数为3次
 ): Promise<Result> => {
   let retries = 0
@@ -58,11 +58,12 @@ export const http = async (
         _result.data &&
         _result.data.refresh
       ) {
-        const token = useCookie("token", { maxAge: 60 * 60 * 6 })
-        token.value = _result.data.token
         useToken().value = _result.data.token
         useRefreshToken().value = _result.data.refreshToken
-
+        saveLocal({
+          token: _result.data.token,
+          refreshToken: _result.data.refreshToken,
+        })
         const obj = useSaveFetch().value ? JSON.parse(useSaveFetch().value) : ""
         if (obj) {
           return await http(obj.url, obj.method, obj.data, obj.options)
@@ -93,12 +94,9 @@ export const http = async (
           useLoginStatus().value = false
           useToken().value = ""
           useRefreshToken().value = ""
-          useCookie("token").value = null
-          useCookie("refreshToken").value = null
-          useCookie("user").value = null
+          clearLocal(["token", "refreshToken", "user"])
           navigateTo("/login")
         }
-        // 等我想想写什么
       }
 
       if ([500].includes(result.status)) {
@@ -106,8 +104,9 @@ export const http = async (
         ElMessage({ message: "服务器错误,不妙啊,稍后重试看看", type: "error" })
       }
       resultData = { ..._result, status: result.status }
+
       if (result.status === 200) {
-        // 清除存在状态证明请求刷新  useSaveRefreshToken
+        // 清除请求刷新状态  useSaveRefreshToken
         useSaveRefreshToken().value = ""
       }
       resultData = { ..._result, status: result.status }
@@ -241,7 +240,7 @@ interface Article {
   content: string
   img_url: string
   img_source: string
-  category_id: number
+  category_id: string
 }
 export const addArticleApi = async (data: Article) => {
   const result = await http(`/api/article`, "POST", data)

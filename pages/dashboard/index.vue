@@ -42,13 +42,15 @@ const getInfo = async () => {
   const res = await getInfoApi()
   if (res.success) {
     loading.value = false
-    info.articles = res.data.articles
-    info.categories = res.data.categories
-    info.roles = res.data.roles
-    info.users = res.data.users
+    info.articles = Number(res.data.articles)
+    info.categories = Number(res.data.categories)
+    info.roles = Number(res.data.roles)
+    info.users = Number(res.data.users)
   }
 }
-getInfo()
+onMounted(() => {
+  getInfo()
+})
 </script>
 
 <style lang="stylus" scoped></style>

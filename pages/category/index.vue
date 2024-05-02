@@ -236,6 +236,7 @@ const addSubmit = async (formRef: FormInstance | undefined) => {
 const addCenael = async (formRef: FormInstance | undefined) => {
   if (!formRef) return
   formRef.resetFields()
+  addDialogVisible.value = false
 }
 
 // 修改分类
@@ -256,6 +257,7 @@ const editForm = reactive({
 const editCenael = async (formRef: FormInstance | undefined) => {
   if (!formRef) return
   formRef.resetFields()
+  editDialogVisible.value = false
 }
 const editSubmit = async (formRef: FormInstance | undefined) => {
   if (!formRef) return

@@ -94,14 +94,14 @@ const rules = reactive<FormRules<EditForm>>({
 const route = useRoute()
 interface Article {
   title: string
-  category_id: number
+  category_id: string
   img_url: string
   img_source: string
   content: string
 }
 const editForm = reactive<Article>({
   title: "",
-  category_id: 0,
+  category_id: "",
   img_url: "",
   img_source: "",
   content: "",
@@ -116,7 +116,7 @@ const getArticle = async () => {
     await getCategorys()
     loading.value = false
     editForm.title = res.data.title
-    editForm.category_id = parseInt(res.data.category_id)
+    editForm.category_id = res.data.category_id
     editForm.img_url = res.data.img_url
     editForm.img_source = res.data.img_source
     editForm.content = res.data.content

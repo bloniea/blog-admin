@@ -81,11 +81,8 @@ const handleSelect = (key: string, keyPath: string[]) => {
 const logout = () => {
   useToken().value = ""
   useRefreshToken().value = ""
-  useUser().value = undefined
+  useUserInfo().value = undefined
   useLoginStatus().value = false
-  useCookie("token").value = null
-  useCookie("refreshToken").value = null
-  useCookie("user").value = null
   navigateTo("/login")
 }
 

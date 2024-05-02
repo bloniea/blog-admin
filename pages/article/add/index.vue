@@ -67,7 +67,7 @@ import type { FormInstance, FormRules } from "element-plus"
 
 interface Category {
   name: string
-  category_id: number
+  category_id: string
 }
 const categories = ref<Category[]>([])
 const loading = ref<boolean>(true)
@@ -97,7 +97,7 @@ const getCategorys = async () => {
 getCategorys()
 const addForm = reactive({
   title: "",
-  category_id: 0,
+  category_id: "",
   img_url: "",
   img_source: "",
   content: "",
@@ -128,7 +128,6 @@ const submitForm = (formEl: FormInstance | undefined) => {
   })
 }
 const resetForm = (formEl: FormInstance | undefined) => {
-  navigateTo("/article")
   if (!formEl) return
   formEl.resetFields()
 }

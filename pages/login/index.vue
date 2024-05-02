@@ -80,11 +80,15 @@ const rules = reactive<FormRules<RuleForm>>({
   ],
   password: [{ required: true, message: "密码呢", trigger: "blur" }],
 })
-// 创建1个cookie
-const token = useCookie("token", { maxAge: 60 * 60 * 6 })
-const refreshToken = useCookie("refreshToken", { maxAge: 60 * 60 * 24 * 7 })
-const userinfo = useCookie("user", { maxAge: 60 * 60 * 24 * 365 * 10 })
+
+// 获取状态管理
+const token = useToken()
+const refreshToken = useRefreshToken()
+const userInfo = useUserInfo()
+const loginStatus = useLoginStatus()
+
 const btnLoading = ref<boolean>(false)
+
 const onSubmit = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate(async (valid, fields) => {
@@ -94,21 +98,29 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
         username: user.username,
         password: sha256(user.password),
       }
-      const result = await loginApi(userReq)
-      if (result.success) {
-        token.value = result.data.token //存入cookie
-        refreshToken.value = result.data.refreshToken
-        userinfo.value = result.data.user
-        useUser().value = result.data.user //存入状态管理
-        useToken().value = result.data.token
-        useRefreshToken().value = result.data.refreshToken
-        useLoginStatus().value = true
-        ElMessage({ message: "登录成功", type: "success" })
-        router.push("/dashboard")
-      } else {
-        ElMessage({ message: "用户或密码错误", type: "error" })
+      try {
+        const result = await loginApi(userReq)
+        if (result.success) {
+          // 存入状态管理
+          token.value = result.data.token
+          refreshToken.value = result.data.refreshToken
+          userInfo.value = result.data.user
+          loginStatus.value = true
+          const saveObj = {
+            user: result.data.user,
+            refreshToken: result.data.refreshToken,
+            token: result.data.token,
+          }
+          saveLocal(saveObj)
+
+          ElMessage({ message: "登录成功", type: "success" })
+          router.push("/dashboard")
+        } else {
+          ElMessage({ message: "用户或密码错误", type: "error" })
+        }
+      } finally {
+        btnLoading.value = false
       }
-      btnLoading.value = false
     } else {
       console.log("error submit!", fields)
     }
