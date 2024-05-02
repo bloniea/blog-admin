@@ -8,8 +8,10 @@ export default defineNuxtConfig({
     // 其他插件...
   ],
   pages: true,
+
   app: {
     head: {
+      title: "HERTA DATABASE ADMIN",
       htmlAttrs: { class: "dark" },
     },
   },

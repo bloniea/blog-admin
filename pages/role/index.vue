@@ -335,7 +335,7 @@ const handleEdit = async (id: number, data: EditData) => {
   defaultExpandedKeys.value = data.permissions
     ? data.permissions.split(",")
     : []
-  console.log(defaultExpandedKeys.value)
+  // console.log(defaultExpandedKeys.value)
   if (permissions.value.length) {
     editLoading.value = false
     return

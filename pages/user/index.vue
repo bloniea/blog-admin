@@ -209,7 +209,7 @@ const getUsers = async () => {
     const result = await getUsersApi({ keyword: keyword.value })
 
     data.value = result.data
-    console.log(result.data, result)
+    // console.log(result.data, result)
   } finally {
     loading.value = false
   }

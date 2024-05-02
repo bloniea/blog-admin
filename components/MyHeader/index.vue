@@ -60,7 +60,7 @@
             @click="submit(userFormRef)"
             :loading="btnLoading"
           >
-            添加
+            修改
           </el-button>
         </div>
       </template>
@@ -123,6 +123,7 @@ const submit = async (formEl: FormInstance | undefined) => {
           newPassword: sha256(userForm.newPassword),
           confirmPassword: sha256(userForm.confirmPassword),
         }
+        btnLoading.value = true
         const res = await resetPwdApi(editUser)
         btnLoading.value = false
         if (res.success) {
