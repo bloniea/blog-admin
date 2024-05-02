@@ -77,10 +77,10 @@ const list = [
   },
 ]
 const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+  // console.log(key, keyPath)
 }
 const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+  // console.log(key, keyPath)
 }
 const defaultActive = computed(() => {
   const router = useRouter()

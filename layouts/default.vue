@@ -21,23 +21,7 @@
   </el-container>
 </template>
 
-<script setup lang="ts">
-const init = () => {
-  const user = window.localStorage.getItem("user")
-  const token = window.localStorage.getItem("token")
-  const refreshToken = window.localStorage.getItem("refreshToken")
-
-  if (user && token && refreshToken) {
-    useUserInfo().value = JSON.parse(user)
-    useToken().value = token
-    useRefreshToken().value = refreshToken
-    useLoginStatus().value = true
-  } else {
-    clearLocal(["user", "token", "refreshToken"])
-  }
-}
-// onMounted(() => init)
-</script>
+<script setup lang="ts"></script>
 
 <style lang="stylus" scoped>
 .layout

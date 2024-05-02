@@ -27,15 +27,21 @@ export const http = async (
       }, timeout)
 
       type AuthHeader = { Authorization: string } | {}
-      const auth: AuthHeader = useToken().value
-        ? { Authorization: "Bearer " + useToken().value }
-        : {}
+      const token = useToken().value !== "" ? useToken().value : "null"
+      const auth: AuthHeader = {
+        Authorization: "Bearer " + token,
+      }
+
+      // useToken().value
+      //   ? { Authorization: "Bearer " + useToken().value }
+      //   : {}
       const opts = {
         ...options,
         headers: { "Content-Type": "application/json", ...auth },
         method: method,
         signal, // 将AbortController关联到请求中
       }
+      // console.log(opts)
       let urlFilter: string = url
       if (method === "GET" || method === "DELETE") {
         if (retries === 0) {
@@ -60,10 +66,12 @@ export const http = async (
       ) {
         useToken().value = _result.data.token
         useRefreshToken().value = _result.data.refreshToken
-        saveLocal({
-          token: _result.data.token,
-          refreshToken: _result.data.refreshToken,
+        const token = useCookie("token", { maxAge: 60 * 60 * 6 })
+        const refreshToken = useCookie("refreshToken", {
+          maxAge: 60 * 60 * 24 * 7,
         })
+        token.value = _result.data.token
+        refreshToken.value = _result.data.refreshToken
         const obj = useSaveFetch().value ? JSON.parse(useSaveFetch().value) : ""
         if (obj) {
           return await http(obj.url, obj.method, obj.data, obj.options)
@@ -94,7 +102,7 @@ export const http = async (
           useLoginStatus().value = false
           useToken().value = ""
           useRefreshToken().value = ""
-          clearLocal(["token", "refreshToken", "user"])
+          clearCookie(["token", "refreshToken", "user"])
           navigateTo("/login")
         }
       }

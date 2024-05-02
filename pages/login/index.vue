@@ -82,11 +82,10 @@ const rules = reactive<FormRules<RuleForm>>({
 })
 
 // 获取状态管理
-const token = useToken()
-const refreshToken = useRefreshToken()
-const userInfo = useUserInfo()
-const loginStatus = useLoginStatus()
 
+const token = useCookie("token", { maxAge: 60 * 60 * 6 })
+const refreshToken = useCookie("refreshToken", { maxAge: 60 * 60 * 24 * 7 })
+const userInfo = useCookie("user", { maxAge: 60 * 60 * 24 * 365 * 10 })
 const btnLoading = ref<boolean>(false)
 
 const onSubmit = async (formEl: FormInstance | undefined) => {
@@ -105,14 +104,10 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
           token.value = result.data.token
           refreshToken.value = result.data.refreshToken
           userInfo.value = result.data.user
-          loginStatus.value = true
-          const saveObj = {
-            user: result.data.user,
-            refreshToken: result.data.refreshToken,
-            token: result.data.token,
-          }
-          saveLocal(saveObj)
-
+          useToken().value = result.data.token
+          useRefreshToken().value = result.data.refreshToken
+          useUserInfo().value = result.data.user
+          useLoginStatus().value = true
           ElMessage({ message: "登录成功", type: "success" })
           router.push("/dashboard")
         } else {

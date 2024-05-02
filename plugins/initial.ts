@@ -1,17 +1,22 @@
+interface User {
+  user_id: number
+  username: string
+  email: string
+  role_id: number
+}
 export default defineNuxtPlugin((nuxtApp) => {
-  // nuxtApp.hook("app:mounted", () => {})
-  if (process.client) {
-    const user = window.localStorage.getItem("user")
-    const token = window.localStorage.getItem("token")
-    const refreshToken = window.localStorage.getItem("refreshToken")
-
-    if (user && token && refreshToken) {
-      useUserInfo().value = JSON.parse(user)
-      useToken().value = token
-      useRefreshToken().value = refreshToken
-      useLoginStatus().value = true
-    } else {
-      clearLocal(["user", "token", "refreshToken"])
-    }
+  const user = useCookie("user").value as unknown as User
+  const token = useCookie("token").value as unknown as string
+  const refreshToken = useCookie("refreshToken").value as unknown as string
+  if (user && (token || refreshToken)) {
+    useUserInfo().value = user
+    useToken().value = token
+    useRefreshToken().value = refreshToken
+    useLoginStatus().value = true
+  } else {
+    useUserInfo().value = undefined
+    useToken().value = ""
+    useRefreshToken().value = ""
+    useLoginStatus().value = false
   }
 })

@@ -70,12 +70,11 @@
 
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from "element-plus"
-import { Search } from "@element-plus/icons-vue"
 
 const activeIndex = ref("1")
 const activeIndex2 = ref("1")
 const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+  // console.log(key, keyPath)
 }
 
 const logout = () => {
@@ -83,6 +82,7 @@ const logout = () => {
   useRefreshToken().value = ""
   useUserInfo().value = undefined
   useLoginStatus().value = false
+  clearCookie(["token", "refreshToken", "user"])
   navigateTo("/login")
 }
 

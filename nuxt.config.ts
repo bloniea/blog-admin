@@ -3,6 +3,10 @@ export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: true },
   modules: ["@element-plus/nuxt"],
+  plugins: [
+    { src: "~/plugins/initial.ts", mode: "client" },
+    // 其他插件...
+  ],
   pages: true,
   app: {
     head: {

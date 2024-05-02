@@ -38,3 +38,8 @@ export const clearLocal = (values: Array<string>) => {
     window.localStorage.removeItem(key)
   })
 }
+export const clearCookie = (values: Array<string>) => {
+  values.forEach((key) => {
+    useCookie(key).value = null
+  })
+}
