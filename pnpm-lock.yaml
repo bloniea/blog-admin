@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@element-plus/nuxt':
-        specifier: ^1.0.8
+        specifier: ^1.0.9
         version: 1.0.9(@element-plus/icons-vue@2.3.1(vue@3.4.26(typescript@5.4.5)))(element-plus@2.7.2(vue@3.4.26(typescript@5.4.5)))(rollup@4.17.2)
       '@nuxt/types':
         specifier: ^2.17.3
@@ -21,10 +21,10 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0
       element-plus:
-        specifier: ^2.6.3
+        specifier: ^2.7.2
         version: 2.7.2(vue@3.4.26(typescript@5.4.5))
       md-editor-v3:
-        specifier: ^4.12.3
+        specifier: ^4.13.5
         version: 4.13.5(@codemirror/view@6.26.3)(@lezer/common@1.2.1)(vue@3.4.26(typescript@5.4.5))
     devDependencies:
       '@nuxt/devtools':
@@ -46,16 +46,16 @@ importers:
         specifier: ^8.4.38
         version: 8.4.38
       sass:
-        specifier: ^1.74.1
+        specifier: ^1.76.0
         version: 1.76.0
       stylus:
         specifier: ^0.63.0
         version: 0.63.0
       tailwindcss:
-        specifier: ^3.4.1
+        specifier: ^3.4.3
         version: 3.4.3
       vue-tsc:
-        specifier: ^2.0.7
+        specifier: ^2.0.16
         version: 2.0.16(typescript@5.4.5)
 
 packages:
