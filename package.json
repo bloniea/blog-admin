@@ -14,7 +14,7 @@
     "@types/prismjs": "^1.26.3",
     "@vue/tsconfig": "^0.5.1",
     "autoprefixer": "^10.4.19",
-    "nuxt": "^3.10.1",
+    "nuxt": "^3.11.2",
     "postcss": "^8.4.38",
     "sass": "^1.74.1",
     "stylus": "^0.63.0",
