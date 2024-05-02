@@ -118,9 +118,12 @@ const submit = async (formEl: FormInstance | undefined) => {
   await formEl.validate(async (valid, fields) => {
     if (valid) {
       try {
-        userForm.newPassword = sha256(userForm.newPassword)
-        userForm.confirmPassword = sha256(userForm.confirmPassword)
-        const res = await resetPwdApi(userForm)
+        const editUser = {
+          password: sha256(userForm.password),
+          newPassword: sha256(userForm.newPassword),
+          confirmPassword: sha256(userForm.confirmPassword),
+        }
+        const res = await resetPwdApi(editUser)
         btnLoading.value = false
         if (res.success) {
           userDialogVisible.value = false
