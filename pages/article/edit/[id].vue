@@ -124,7 +124,9 @@ const getArticle = async () => {
     navigateTo("/article")
   }
 }
-getArticle()
+onMounted(() => {
+  getArticle()
+})
 
 const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return

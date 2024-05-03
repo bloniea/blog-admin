@@ -179,7 +179,10 @@ const getRoles = async () => {
   }
 }
 // 执行获取角色列表方法
-getRoles()
+onMounted(() => {
+  getRoles()
+})
+
 const getAllRoles = async (val: string) => {
   if (val === "") {
     await getRoles()

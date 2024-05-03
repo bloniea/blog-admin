@@ -214,7 +214,10 @@ const getUsers = async () => {
     loading.value = false
   }
 }
-getUsers()
+onMounted(() => {
+  getUsers()
+})
+
 // 清空获取回全部数据
 const getAllUsers = async (val: string) => {
   if (val === "") {

@@ -175,7 +175,9 @@ const getCategories = async () => {
   data.value = res.data.result
   total.value = parseInt(res.data.total)
 }
-getCategories()
+onMounted(() => {
+  getCategories()
+})
 
 const getAllCategories = async () => {
   if (!query.keyword) {

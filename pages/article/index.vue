@@ -103,7 +103,10 @@ const getArticles = async () => {
   total.value = parseInt(res.data.total)
   loading.value = false
 }
-getArticles()
+onMounted(() => {
+  getArticles()
+})
+
 const getAllArticles = async () => {
   if (!query.keyword) getArticles()
 }
