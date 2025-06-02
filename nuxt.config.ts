@@ -37,7 +37,7 @@ export default defineNuxtConfig({
   nitro: {
     devProxy: {
       "/api": {
-        target: "https://blog.api.bloniea.com/v1",
+        target: "https://blog.api.bloniea.my/v1",
         // target: "http://localhost:3001/v1/",
         changeOrigin: true,
       },
